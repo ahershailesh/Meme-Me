@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A6E00A3202F8EA10001297D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6E00A2202F8EA10001297D /* Extensions.swift */; };
+		8A6E00A5202F8EE00001297D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6E00A4202F8EE00001297D /* Constants.swift */; };
+		8A6E00A7202F91000001297D /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6E00A6202F91000001297D /* PhotoController.swift */; };
+		8A6E00A920308A310001297D /* PickerViewDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6E00A820308A310001297D /* PickerViewDataHandler.swift */; };
+		8A6E00AC2030BBAE0001297D /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6E00AA2030BBAE0001297D /* PickerViewController.swift */; };
+		8A6E00AD2030BBAE0001297D /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6E00AB2030BBAE0001297D /* PickerViewController.xib */; };
 		8AB3A665202F74D200373D76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB3A664202F74D200373D76 /* AppDelegate.swift */; };
 		8AB3A667202F74D200373D76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB3A666202F74D200373D76 /* ViewController.swift */; };
 		8AB3A66A202F74D200373D76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB3A668202F74D200373D76 /* Main.storyboard */; };
@@ -15,6 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A6E00A2202F8EA10001297D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8A6E00A4202F8EE00001297D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8A6E00A6202F91000001297D /* PhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
+		8A6E00A820308A310001297D /* PickerViewDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewDataHandler.swift; sourceTree = "<group>"; };
+		8A6E00AA2030BBAE0001297D /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		8A6E00AB2030BBAE0001297D /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
 		8AB3A661202F74D200373D76 /* Meme Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meme Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB3A664202F74D200373D76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AB3A666202F74D200373D76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,12 +66,18 @@
 		8AB3A663202F74D200373D76 /* Meme Me */ = {
 			isa = PBXGroup;
 			children = (
+				8A6E00A6202F91000001297D /* PhotoController.swift */,
+				8A6E00A4202F8EE00001297D /* Constants.swift */,
+				8A6E00A2202F8EA10001297D /* Extensions.swift */,
 				8AB3A664202F74D200373D76 /* AppDelegate.swift */,
 				8AB3A666202F74D200373D76 /* ViewController.swift */,
+				8A6E00A820308A310001297D /* PickerViewDataHandler.swift */,
 				8AB3A668202F74D200373D76 /* Main.storyboard */,
 				8AB3A66B202F74D200373D76 /* Assets.xcassets */,
 				8AB3A66D202F74D200373D76 /* LaunchScreen.storyboard */,
 				8AB3A670202F74D200373D76 /* Info.plist */,
+				8A6E00AA2030BBAE0001297D /* PickerViewController.swift */,
+				8A6E00AB2030BBAE0001297D /* PickerViewController.xib */,
 			);
 			path = "Meme Me";
 			sourceTree = "<group>";
@@ -125,6 +143,7 @@
 			files = (
 				8AB3A66F202F74D200373D76 /* LaunchScreen.storyboard in Resources */,
 				8AB3A66C202F74D200373D76 /* Assets.xcassets in Resources */,
+				8A6E00AD2030BBAE0001297D /* PickerViewController.xib in Resources */,
 				8AB3A66A202F74D200373D76 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,8 +155,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A6E00A7202F91000001297D /* PhotoController.swift in Sources */,
+				8A6E00A920308A310001297D /* PickerViewDataHandler.swift in Sources */,
 				8AB3A667202F74D200373D76 /* ViewController.swift in Sources */,
+				8A6E00A3202F8EA10001297D /* Extensions.swift in Sources */,
 				8AB3A665202F74D200373D76 /* AppDelegate.swift in Sources */,
+				8A6E00AC2030BBAE0001297D /* PickerViewController.swift in Sources */,
+				8A6E00A5202F8EE00001297D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +301,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UFPXYFK948;
 				INFOPLIST_FILE = "Meme Me/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.udacity.Meme-Me";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -292,6 +317,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UFPXYFK948;
 				INFOPLIST_FILE = "Meme Me/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.udacity.Meme-Me";
 				PRODUCT_NAME = "$(TARGET_NAME)";
