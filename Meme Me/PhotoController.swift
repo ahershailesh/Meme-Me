@@ -252,7 +252,6 @@ class PhotoController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         moveTextFieldUp(textField: textField)
-        doneButtonTapped()
         return true
     }
     
