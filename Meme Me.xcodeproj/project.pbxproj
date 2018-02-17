@@ -72,12 +72,12 @@
 				8AB3A664202F74D200373D76 /* AppDelegate.swift */,
 				8AB3A666202F74D200373D76 /* ViewController.swift */,
 				8A6E00A820308A310001297D /* PickerViewDataHandler.swift */,
+				8A6E00AA2030BBAE0001297D /* PickerViewController.swift */,
+				8A6E00AB2030BBAE0001297D /* PickerViewController.xib */,
 				8AB3A668202F74D200373D76 /* Main.storyboard */,
 				8AB3A66B202F74D200373D76 /* Assets.xcassets */,
 				8AB3A66D202F74D200373D76 /* LaunchScreen.storyboard */,
 				8AB3A670202F74D200373D76 /* Info.plist */,
-				8A6E00AA2030BBAE0001297D /* PickerViewController.swift */,
-				8A6E00AB2030BBAE0001297D /* PickerViewController.xib */,
 			);
 			path = "Meme Me";
 			sourceTree = "<group>";

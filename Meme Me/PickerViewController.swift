@@ -27,10 +27,10 @@ class PickerViewController: UIViewController {
     var callBack : (() -> Void)?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        fontName = "HelveticaNeue-CondensedBlack"
-        fontSize = 12
-        foregroundColor = UIColor.white
-        backgroundColor = UIColor.clear
+        fontName = pickerDataHandler.getDefaultFont()
+        fontSize = pickerDataHandler.getFontSize()
+        foregroundColor = pickerDataHandler.getForegroundColor()
+        backgroundColor = pickerDataHandler.getBackgroundColor()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -43,6 +43,7 @@ class PickerViewController: UIViewController {
         pickerView.dataSource = self
         pickerView.delegate = self
         pickerView.backgroundColor = UIColor.clear
+        setupDefaults()
     }
 
     func getColorView(color: UIColor) -> UIView {
@@ -108,6 +109,13 @@ extension PickerViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             return getColorView(color: color)
         }
         return UIView()
+    }
+    
+    private func setupDefaults() {
+        pickerView.selectRow(pickerDataHandler.fontIndex, inComponent: Section.first.rawValue, animated: true)
+        pickerView.selectRow(pickerDataHandler.sizeIndex, inComponent: Section.second.rawValue, animated: true)
+        pickerView.selectRow(pickerDataHandler.backgroundColorIndex, inComponent: Section.third.rawValue, animated: true)
+        pickerView.selectRow(pickerDataHandler.foregroundColorIndex, inComponent: Section.forth.rawValue, animated: true)
     }
 }
 
