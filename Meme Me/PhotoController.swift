@@ -13,22 +13,28 @@ class PhotoController: UIViewController, UITextFieldDelegate {
     enum PhotoMode {
         case view, edit
     }
-
-    //MARK:- Public Vars
-    var mode : PhotoMode = .edit
-    var image : UIImage?
     
     //MARK:- Private Vars
     private var pickerDataHandler = PickerViewDataHandler()
     private let pickerController = PickerViewController(nibName: "PickerViewController", bundle: nil)
-    
     private var textFieldsArray = [UITextField]()
-    private let defaultTextFieldSize = CGSize(width: UIScreen.main.bounds.width, height: 36)
     private var gesture :  UIPanGestureRecognizer?
-    
     private var textField : UITextField?
     private var frame : CGRect?
+    private var defaultTextFieldSize : CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: 36)
+    }
+    private var centerPoint : CGPoint {
+        return CGPoint(x: 0, y: UIScreen.main.bounds.height/2)
+    }
     
+    //MARK:- Public Vars
+    var mode : PhotoMode = .edit
+    
+    //user preferred image to be shown
+    var image : UIImage?
+    
+    //outlet property to show image
     @IBOutlet weak var imageView: UIImageView!
     
     //MARK:- Setter Getter
@@ -51,6 +57,7 @@ class PhotoController: UIViewController, UITextFieldDelegate {
         pickerController.callBack = {
             self.setTextFieldProperties()
         }
+        imageView.contentMode = .scaleAspectFit
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,22 +66,28 @@ class PhotoController: UIViewController, UITextFieldDelegate {
         navigationController?.isToolbarHidden = false
     }
     
-    //MARK:- View Related Functions
-    private func setupMode(changedMode: PhotoMode) {
-        changedMode == .edit ? prepareToolBar() : hideViews()
+    
+    /// This method is overrided to change textfield width and location on rotation.
+    ///
+    /// - Parameter fromInterfaceOrientation: None.
+    
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        super.didRotate(from: fromInterfaceOrientation)
+        textField?.frame.origin = centerPoint
+        textField?.frame.size = defaultTextFieldSize
     }
     
-    func setTextFieldProperties() {
-        textField?.defaultTextAttributes = getAttributes()
-        textField?.backgroundColor = pickerController.backgroundColor
-    }
+    //MARK:- Private Operation Methods
     
+    //If textfield is saved, share button will start apearing, button will be : add, share.
     private func prepareToolBar() {
         let addTextFieldButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonAction))
-        var operationArray : [UIBarButtonItem]
+        
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        var operationArray : [UIBarButtonItem]
         if !textFieldsArray.isEmpty {
-            let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: nil)
+            let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
             operationArray = [addTextFieldButton, spacer, shareButton]
         } else {
             operationArray = [spacer, addTextFieldButton, spacer]
@@ -83,18 +96,68 @@ class PhotoController: UIViewController, UITextFieldDelegate {
         setToolbarItems(operationArray, animated: true)
     }
     
+    @objc private func addButtonAction() {
+        prepareEditToolBar()
+        addTextField()
+    }
     
+    
+    /// This function will share pic, using UIActivityViewController.
+    @objc private func share() {
+        let activityController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
+        activityController.completionWithItemsHandler = { [weak self] (_,completed,_, _) in
+            if completed {
+                let memedImage = self?.saveImage()
+                let originalImage = self?.imageView.image
+                
+                let memeModel = MemeModel()
+                memeModel.memedImage = memedImage
+                memeModel.originalImage = originalImage
+                memeModel.subTitles = self?.textFieldsArray.flatMap { $0.text } ?? []
+                
+                self?.dismiss(animated: true, completion: nil)
+            } else {
+                self?.showAlert(message: "Cannot able to save picture as it is not shared")
+            }
+        }
+        present(activityController, animated: true, completion: nil)
+    }
+    
+    /// This method will create buttons for edit operation, Button shown in order close, edit, save
     @objc private func prepareEditToolBar() {
 
         let removeTextFieldButton = UIBarButtonItem(image: UIImage(named: "ic_close_white"), style: .plain, target: self, action: #selector(removeTextField))
 
-        let saveButtonButton = UIBarButtonItem(image: UIImage(named: "ic_save_white"), style: .plain, target: self, action: #selector(saveButton))
-        
         let editButton = UIBarButtonItem(image: UIImage(named: "ic_edit_white"), style: .plain, target: self, action: #selector(editButtonTapped))
+        
+        let saveButtonButton = UIBarButtonItem(image: UIImage(named: "ic_save_white"), style: .plain, target: self, action: #selector(saveButtonTapped))
+        
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
         let operationArray = [removeTextFieldButton, spacer, editButton, spacer, saveButtonButton]
         setToolbarItems(operationArray, animated: true)
+    }
+    
+    //This will remove added textfield.
+    @objc private func removeTextField() {
+        textField?.removeFromSuperview()
+        prepareToolBar()
+    }
+    
+    ///If edit button tapped, toolbar buttons will replaced with done button.
+    @objc private func editButtonTapped() {
+        preparePickerView()
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        setToolbarItems([spacer, done, spacer], animated: true)
+    }
+
+    //This function will remove access from UITextView.
+    @objc private func saveButtonTapped() {
+        textFieldsArray.append(textField!)
+        textField?.isUserInteractionEnabled = false
+        textField?.removeGestureRecognizer(gesture!)
+        prepareToolBar()
     }
     
     private func preparePickerView() {
@@ -112,50 +175,15 @@ class PhotoController: UIViewController, UITextFieldDelegate {
         pickerController.view.frame = CGRect(x: 0,y: self.view.frame.maxY - height,width: width,height: height)
     }
     
-    private func removePickerView() {
-        pickerController.view.removeFromSuperview()
-    }
-    
-    //MARK:- Private Operation Methods
-    @objc private func editButtonTapped() {
-        preparePickerView()
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let done = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
-        setToolbarItems([spacer, done, spacer], animated: true)
-    }
-
+    //This will close picker view
     @objc private func doneButtonTapped() {
         removePickerView()
         restoreTextField(textField: textField!)
         prepareEditToolBar()
     }
     
-    @objc private func removeTextField() {
-        textField?.removeFromSuperview()
-        prepareToolBar()
-    }
-    
-    @objc private func saveButton() {
-        textFieldsArray.append(textField!)
-        textField?.isUserInteractionEnabled = false
-        textField?.removeGestureRecognizer(gesture!)
-        prepareToolBar()
-    }
-    
-    @objc private func share() {
-        let activityController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
-        present(activityController, animated: true) { [weak self] in
-            self?.share()
-            self?.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    @objc private func addButtonAction() {
-        prepareEditToolBar()
-        addTextField()
-    }
-    
-    @objc func saveImage() -> UIImage {
+    //MARK:- Private methods
+    private func saveImage() -> UIImage {
         var memedImage : UIImage
         if !textFieldsArray.isEmpty {
             hideViews()
@@ -169,6 +197,30 @@ class PhotoController: UIViewController, UITextFieldDelegate {
             memedImage = image!
         }
         return memedImage
+    }
+    
+    @objc private func imageSaved(image : UIImage, didFinishSavingWithError error: NSError,contextInfo: Any) {
+        mode = .view
+        self.image = image
+    }
+    
+    @objc private func userDragged(gesture: UIPanGestureRecognizer){
+        let loc = gesture.location(in: self.view)
+        let center = textField?.center ?? CGPoint.zero
+        textField?.center = CGPoint(x: center.x, y: loc.y)
+    }
+    
+    private func setupMode(changedMode: PhotoMode) {
+        changedMode == .edit ? prepareToolBar() : hideViews()
+    }
+    
+    private func setTextFieldProperties() {
+        textField?.defaultTextAttributes = getAttributes()
+        textField?.backgroundColor = pickerController.backgroundColor
+    }
+    
+    private func removePickerView() {
+        pickerController.view.removeFromSuperview()
     }
     
     private func hideViews(isHidden : Bool = true){
@@ -228,20 +280,8 @@ class PhotoController: UIViewController, UITextFieldDelegate {
         return attributes
     }
     
-    @objc func userDragged(gesture: UIPanGestureRecognizer){
-        let loc = gesture.location(in: self.view)
-        let center = textField?.center ?? CGPoint.zero
-        textField?.center = CGPoint(x: center.x, y: loc.y)
-    }
-    
-    
-    @objc func imageSaved(image : UIImage, didFinishSavingWithError error: NSError,contextInfo: Any) {
-        mode = .view
-        self.image = image
-    }
-    
     //MARK:- UITextFieldDelegate
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
     }

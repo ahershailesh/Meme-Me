@@ -13,6 +13,7 @@
 		8A6E00A920308A310001297D /* PickerViewDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6E00A820308A310001297D /* PickerViewDataHandler.swift */; };
 		8A6E00AC2030BBAE0001297D /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6E00AA2030BBAE0001297D /* PickerViewController.swift */; };
 		8A6E00AD2030BBAE0001297D /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6E00AB2030BBAE0001297D /* PickerViewController.xib */; };
+		8AAAF0B32038AF8E000A82B9 /* MemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAAF0B22038AF8E000A82B9 /* MemeModel.swift */; };
 		8AB3A665202F74D200373D76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB3A664202F74D200373D76 /* AppDelegate.swift */; };
 		8AB3A667202F74D200373D76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB3A666202F74D200373D76 /* ViewController.swift */; };
 		8AB3A66A202F74D200373D76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB3A668202F74D200373D76 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		8A6E00A820308A310001297D /* PickerViewDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewDataHandler.swift; sourceTree = "<group>"; };
 		8A6E00AA2030BBAE0001297D /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		8A6E00AB2030BBAE0001297D /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
+		8AAAF0B22038AF8E000A82B9 /* MemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeModel.swift; sourceTree = "<group>"; };
 		8AB3A661202F74D200373D76 /* Meme Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Meme Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB3A664202F74D200373D76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AB3A666202F74D200373D76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				8AB3A66B202F74D200373D76 /* Assets.xcassets */,
 				8AB3A66D202F74D200373D76 /* LaunchScreen.storyboard */,
 				8AB3A670202F74D200373D76 /* Info.plist */,
+				8AAAF0B22038AF8E000A82B9 /* MemeModel.swift */,
 			);
 			path = "Meme Me";
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 				8AB3A665202F74D200373D76 /* AppDelegate.swift in Sources */,
 				8A6E00AC2030BBAE0001297D /* PickerViewController.swift in Sources */,
 				8A6E00A5202F8EE00001297D /* Constants.swift in Sources */,
+				8AAAF0B32038AF8E000A82B9 /* MemeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
