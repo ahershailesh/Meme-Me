@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var photoAlbumImage: UIImageView!
-    
     @IBOutlet weak var photoImageBackView1: UIView!
     @IBOutlet weak var photoImageBackView2: UIView!
     @IBOutlet weak var photoImageBackView3: UIView!

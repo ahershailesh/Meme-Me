@@ -37,6 +37,8 @@ class PhotoController: UIViewController, UITextFieldDelegate {
     //outlet property to show image
     @IBOutlet weak var imageView: UIImageView!
     
+    var callBack : Constants.CompletionBlock?
+    
     //MARK:- Setter Getter
     private func saveFrame(frame: CGRect) {
         self.frame = frame
@@ -109,12 +111,11 @@ class PhotoController: UIViewController, UITextFieldDelegate {
             if completed {
                 let memedImage = self?.saveImage()
                 let originalImage = self?.imageView.image
-                
                 let memeModel = MemeModel()
                 memeModel.memedImage = memedImage
                 memeModel.originalImage = originalImage
                 memeModel.subTitles = self?.textFieldsArray.flatMap { $0.text } ?? []
-                
+                self?.callBack?(true, memeModel, nil)
                 self?.dismiss(animated: true, completion: nil)
             } else {
                 self?.showAlert(message: "Cannot able to save picture as it is not shared")
