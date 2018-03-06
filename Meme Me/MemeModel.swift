@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemeModel: NSObject {
+struct MemeModel {
     var subTitles = [String]()
     var originalImage : UIImage?
     var memedImage : UIImage?

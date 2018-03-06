@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var photoImageBackView3: UIView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         photoImageBackView1.layer.cornerRadius = photoImageBackView1.frame.width / 2
         photoImageBackView2.layer.cornerRadius = photoImageBackView2.frame.width / 2
         photoImageBackView3.layer.cornerRadius = photoImageBackView3.frame.width / 2
@@ -28,20 +29,22 @@ class ViewController: UIViewController {
     }
     
     @IBAction func openPhoto(_ sender: Any) {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.delegate = self
-        present(picker, animated: false, completion: nil)
+       presentImagePicker(withSourceType: .photoLibrary)
     }
     
     @IBAction func openCamera(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+        presentImagePicker(withSourceType: .camera)
+    }
+    
+    private func presentImagePicker(withSourceType sourceType: UIImagePickerControllerSourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             let picker = UIImagePickerController()
-            picker.sourceType = .camera
+            picker.sourceType = sourceType
             picker.delegate = self
             present(picker, animated: false, completion: nil)
         } else {
-            showAlert(message: "This device does not support camera")
+            let sourceTypeString = sourceType == .camera ? "camera" : "photo library"
+            showAlert(message: "This device does not support \(sourceTypeString)")
         }
     }
     

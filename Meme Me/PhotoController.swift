@@ -109,19 +109,23 @@ class PhotoController: UIViewController, UITextFieldDelegate {
         let activityController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
         activityController.completionWithItemsHandler = { [weak self] (_,completed,_, _) in
             if completed {
-                let memedImage = self?.saveImage()
-                let originalImage = self?.imageView.image
-                let memeModel = MemeModel()
-                memeModel.memedImage = memedImage
-                memeModel.originalImage = originalImage
-                memeModel.subTitles = self?.textFieldsArray.flatMap { $0.text } ?? []
-                self?.callBack?(true, memeModel, nil)
-                self?.dismiss(animated: true, completion: nil)
+                self?.saveMeme()
             } else {
                 self?.showAlert(message: "Cannot able to save picture as it is not shared")
             }
         }
         present(activityController, animated: true, completion: nil)
+    }
+    
+    private func saveMeme() {
+        let memedImage = saveImage()
+        let originalImage = imageView.image
+        var memeModel = MemeModel()
+        memeModel.memedImage = memedImage
+        memeModel.originalImage = originalImage
+        memeModel.subTitles = textFieldsArray.flatMap { $0.text } ?? []
+        callBack?(true, memeModel, nil)
+        dismiss(animated: true, completion: nil)
     }
     
     /// This method will create buttons for edit operation, Button shown in order close, edit, save
@@ -253,7 +257,6 @@ class PhotoController: UIViewController, UITextFieldDelegate {
         textField = UITextField(frame: CGRect.zero)
         textField?.frame.size = defaultTextFieldSize
         textField?.center = imageView.center
-        textField?.textAlignment = .center
         textField?.backgroundColor = UIColor.brown
         textField?.returnKeyType = .done
         textField?.delegate = self
@@ -268,6 +271,7 @@ class PhotoController: UIViewController, UITextFieldDelegate {
             NSAttributedStringKey.strokeWidth   : -1.0,
             NSAttributedStringKey.foregroundColor : UIColor.gray])
         textField?.defaultTextAttributes = getAttributes()
+        textField?.textAlignment = .center
         textField?.addGestureRecognizer(gesture!)
         view.addSubview(textField!)
     }
