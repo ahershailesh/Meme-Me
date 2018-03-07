@@ -47,10 +47,10 @@ class PickerViewController: UIViewController {
     }
 
     func getColorView(color: UIColor) -> UIView {
-        let width_height : CGFloat = 24
-        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: width_height, height: width_height)))
+        let widthHeight : CGFloat = 24
+        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: widthHeight, height: widthHeight)))
         view.backgroundColor = color
-        view.layer.cornerRadius = width_height/2
+        view.layer.cornerRadius = widthHeight/2
         return view
     }
     

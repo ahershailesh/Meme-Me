@@ -106,10 +106,12 @@ class PhotoController: UIViewController, UITextFieldDelegate {
     
     /// This function will share pic, using UIActivityViewController.
     @objc private func share() {
-        let activityController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
+        let memedModel = saveMeme()
+        let activityController = UIActivityViewController(activityItems: [memedModel.memedImage!], applicationActivities: nil)
         activityController.completionWithItemsHandler = { [weak self] (_,completed,_, _) in
             if completed {
-                self?.saveMeme()
+                self?.navigationController?.popViewController(animated: true)
+                self?.callBack?(true, memedModel, nil)
             } else {
                 self?.showAlert(message: "Cannot able to save picture as it is not shared")
             }
@@ -117,15 +119,14 @@ class PhotoController: UIViewController, UITextFieldDelegate {
         present(activityController, animated: true, completion: nil)
     }
     
-    private func saveMeme() {
+    private func saveMeme() -> MemeModel {
         let memedImage = saveImage()
         let originalImage = imageView.image
         var memeModel = MemeModel()
         memeModel.memedImage = memedImage
         memeModel.originalImage = originalImage
-        memeModel.subTitles = textFieldsArray.flatMap { $0.text } ?? []
-        callBack?(true, memeModel, nil)
-        dismiss(animated: true, completion: nil)
+        memeModel.subTitles = textFieldsArray.flatMap { $0.text }
+        return memeModel
     }
     
     /// This method will create buttons for edit operation, Button shown in order close, edit, save

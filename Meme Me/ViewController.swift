@@ -59,6 +59,9 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage,
             let editorViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoController") as? PhotoController {
             editorViewController.image = image
+            editorViewController.callBack = { (success, response, _) in
+                self.showAlert(message: "Image saved successfully", title: "Important")
+            }
             picker.dismiss(animated: true, completion: nil)
             navigationController?.pushViewController(editorViewController, animated: true)
         }
