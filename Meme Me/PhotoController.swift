@@ -106,21 +106,22 @@ class PhotoController: UIViewController, UITextFieldDelegate {
     
     /// This function will share pic, using UIActivityViewController.
     @objc private func share() {
-        let memedModel = saveMeme()
+        let memedModel = getMemeModel()
         let activityController = UIActivityViewController(activityItems: [memedModel.memedImage!], applicationActivities: nil)
-        activityController.completionWithItemsHandler = { [weak self] (_,completed,_, _) in
+        activityController.completionWithItemsHandler = { (_,completed,_, _) in
             if completed {
-                self?.navigationController?.popViewController(animated: true)
-                self?.callBack?(true, memedModel, nil)
+                self.navigationController?.popViewController(animated: true)
+                UIImageWriteToSavedPhotosAlbum(memedModel.memedImage!, self, #selector(self.imageSaved), nil)
+                self.callBack?(true, memedModel, nil)
             } else {
-                self?.showAlert(message: "Cannot able to save picture as it is not shared")
+                self.showAlert(message: "Cannot able to save picture as it is not shared")
             }
         }
         present(activityController, animated: true, completion: nil)
     }
     
-    private func saveMeme() -> MemeModel {
-        let memedImage = saveImage()
+    private func getMemeModel() -> MemeModel {
+        let memedImage = getMemedImage()
         let originalImage = imageView.image
         var memeModel = MemeModel()
         memeModel.memedImage = memedImage
@@ -189,7 +190,7 @@ class PhotoController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK:- Private methods
-    private func saveImage() -> UIImage {
+    private func getMemedImage() -> UIImage {
         var memedImage : UIImage
         if !textFieldsArray.isEmpty {
             hideViews()
@@ -197,7 +198,6 @@ class PhotoController: UIViewController, UITextFieldDelegate {
             view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
             memedImage = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
-            UIImageWriteToSavedPhotosAlbum(memedImage, self, #selector(imageSaved), nil)
             hideViews(isHidden: false)
         } else {
             memedImage = image!
