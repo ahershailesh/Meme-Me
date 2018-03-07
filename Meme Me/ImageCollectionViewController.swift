@@ -49,6 +49,7 @@ class ImageCollectionViewController: UIViewController {
             layout.minimumInteritemSpacing = ITEM_SPACING
             layout.minimumLineSpacing = LINE_SPACING
         }
+        title = "Sent Memes"
     }
     
     private func getItemSize() -> CGSize {
