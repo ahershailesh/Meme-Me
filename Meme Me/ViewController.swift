@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.isHidden = true
         navigationController?.isToolbarHidden = true
     }
     
@@ -49,7 +49,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func viewSavedMemes(_ sender: Any) {
-        
+        if let controller = storyboard?.instantiateViewController(withIdentifier: "ImageCollectionViewController") {
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
 
@@ -61,6 +63,9 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             editorViewController.image = image
             editorViewController.callBack = { (success, response, _) in
                 self.showAlert(message: "Image saved successfully", title: "Important")
+                if let model = response as? MemeModel {
+                    MemeHandler.shared.memeList.append(model)
+                }
             }
             picker.dismiss(animated: true, completion: nil)
             navigationController?.pushViewController(editorViewController, animated: true)
