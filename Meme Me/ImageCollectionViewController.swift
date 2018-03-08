@@ -49,7 +49,7 @@ class ImageCollectionViewController: UIViewController {
             layout.minimumInteritemSpacing = ITEM_SPACING
             layout.minimumLineSpacing = LINE_SPACING
         }
-        title = "Sent Memes"
+        title = "Collection"
     }
     
     private func getItemSize() -> CGSize {
@@ -84,8 +84,9 @@ extension ImageCollectionViewController: UICollectionViewDataSource {
 extension ImageCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = MemeHandler.shared.memeList[indexPath.row]
-        let controller = PreviewImageViewController()
-        controller.model = model
-        navigationController?.pushViewController(controller, animated: true)
+        if let controller = storyboard?.instantiateViewController(withIdentifier: "PreviewImageViewController") as? PreviewImageViewController {
+            navigationController?.pushViewController(controller, animated: true)
+            controller.model = model
+        }
     }
 }

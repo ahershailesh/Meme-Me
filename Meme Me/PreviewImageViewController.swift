@@ -10,14 +10,10 @@ import UIKit
 
 class PreviewImageViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
-    
-    var model : MemeModel? {
-        didSet {
-            imageView.image = model?.memedImage
-        }
-    }
+    var model : MemeModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.image = model?.memedImage
     }
 }

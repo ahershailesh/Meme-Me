@@ -48,11 +48,11 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func viewSavedMemes(_ sender: Any) {
-        if let controller = storyboard?.instantiateViewController(withIdentifier: "ImageCollectionViewController") {
-            navigationController?.pushViewController(controller, animated: true)
-        }
-    }
+//    @IBAction func viewSavedMemes(_ sender: Any) {
+//        if let controller = storyboard?.instantiateViewController(withIdentifier: "ImageCollectionViewController") {
+//            navigationController?.pushViewController(controller, animated: true)
+//        }
+//    }
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
